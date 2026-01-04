@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arcline | Connection Removed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Arcline AI Readiness – QuickBooks connection removed."
+  />
+  <link rel="icon" href="favicon.ico" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --danger: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 48%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Shell */
+    .page-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Navbar */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.86);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #1d4ed8 55%, #020617 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #e5f6ff;
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.6);
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-title-main {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-title-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    .nav-link {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      transition: all 0.16s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-link-primary {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: radial-gradient(circle at 0 0, #22d3ee, #1d4ed8 60%, #020617 100%);
+      color: #e0faff;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.5);
+    }
+
+    .nav-link-primary span {
+      opacity: 0.9;
+      font-size: 12px;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 720px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 58%)
+          border-box,
+        linear-gradient(to bottom right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98))
+          padding-box;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 26px 24px 24px;
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--danger);
+      box-shadow: 0 0 12px rgba(248, 113, 113, 0.9);
+    }
+
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 26px;
+      font-weight: 650;
+      letter-spacing: 0.01em;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.5;
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card-section {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      padding: 16px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .section-content {
+      font-size: 14px;
+      color: #e5e7eb;
+      line-height: 1.55;
+    }
+
+    .list {
+      padding-left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .list li span {
+      color: var(--text-muted);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.16s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #22d3ee, #1d4ed8);
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e0faff;
+      box-shadow: 0 16px 40px rgba(56, 189, 248, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 50px rgba(56, 189, 248, 0.7);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .btn-icon {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 14px 16px 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1120px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      color: var(--text-main);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        padding: 10px 10px;
+      }
+      .nav-links {
+        gap: 8px;
+      }
+      .nav-title-main {
+        font-size: 15px;
+      }
+      .card {
+        padding: 20px 16px 18px;
+      }
+      .card-title {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <!-- Nav -->
+    <header class="nav">
+      <div class="nav-left">
+        <div class="nav-logo">A</div>
+        <div class="nav-title">
+          <div class="nav-title-main">Arcline</div>
+          <div class="nav-title-sub">AI Readiness for Construction</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Overview</a>
+        <a href="privacy.html" class="nav-link">Privacy</a>
+        <a href="terms.html" class="nav-link">Terms</a>
+        <a href="mailto:ben14parks@gmail.com" class="nav-link-primary">
+          <span>Contact founder</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+      <section class="card" aria-labelledby="disconnect-title">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Connection removed</span>
+        </div>
+
+        <div class="card-header">
+          <h1 id="disconnect-title" class="card-title">
+            Your QuickBooks connection to Arcline has been disconnected
+          </h1>
+          <p class="card-subtitle">
+            Going forward, Arcline will no longer sync new accounting data from this
+            QuickBooks company. Your existing readiness analyses and reports inside
+            Arcline are preserved, and you remain in full control of when or if you
+            reconnect.
+          </p>
+        </div>
+
+        <div class="card-body">
+          <div class="card-section">
+            <h2 class="section-title">What this means</h2>
+            <div class="section-content">
+              <ul class="list">
+                <li>
+                  <strong>No new data pulls.</strong>
+                  <span>
+                    Arcline will stop requesting or refreshing data from the disconnected
+                    QuickBooks company.
+                  </span>
+                </li>
+                <li>
+                  <strong>Existing analyses stay in Arcline.</strong>
+                  <span>
+                    Any readiness scores or narratives already generated remain available
+                    to you for reference.
+                  </span>
+                </li>
+                <li>
+                  <strong>You can reconnect at any time.</strong>
+                  <span>
+                    Reconnecting simply re-authorizes read-only access to your
+                    QuickBooks data so we can update your AI readiness view.
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <h2 class="section-title">Data handling & privacy</h2>
+            <p class="section-content">
+              Arcline uses your accounting data solely to compute data-quality scores,
+              readiness metrics, and ROI scenarios that you explicitly request. We do not
+              resell or share your identifiable financial data with third parties.
+            </p>
+            <p class="section-content">
+              For full details on what we store, for how long, and how you can request
+              deletion, please review our
+              <a href="privacy.html" class="footer-link">Privacy Policy</a> and
+              <a href="terms.html" class="footer-link">Terms of Use</a>.
+            </p>
+          </div>
+
+          <div class="card-section">
+            <h2 class="section-title">Need to reconnect or ask a question?</h2>
+            <p class="section-content">
+              If you disconnected by mistake, you can safely reconnect from within
+              Arcline or directly from the Intuit AppCenter. If you have questions about
+              how your data is used, or want us to remove historical data, reach out
+              directly and we’ll handle it personally.
+            </p>
+
+            <div class="cta-row">
+              <a href="index.html" class="btn btn-primary">
+                <span class="btn-icon">↩</span>
+                <span>Return to Arcline overview</span>
+              </a>
+              <a href="mailto:ben14parks@gmail.com" class="btn btn-ghost">
+                <span class="btn-icon">✉︎</span>
+                <span>Email Ben with a question</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Arcline. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link">Privacy</a>
+        <span>•</span>
+        <a href="terms.html" class="footer-link">Terms</a>
+        <span>•</span>
+        <a href="mailto:ben14parks@gmail.com" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -2,51 +2,542 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Arcline – AI Readiness for Construction</title>
+  <title>Arcline – AI Readiness for Construction & Trades</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Arcline analyzes QuickBooks Online and other systems to measure data quality, readiness for automation, and practical ROI opportunities for construction and trade businesses."
+  />
   <style>
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 2rem; max-width: 800px; line-height: 1.6; }
-    h1 { margin-bottom: 0.25rem; }
-    .tagline { color: #555; margin-bottom: 2rem; }
-    a { color: #2563eb; }
-    .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; }
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card-bg: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2937;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #020617 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .shell {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 3rem;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0, var(--accent) 0, #0f172a 55%, #020617 100%);
+      box-shadow: 0 0 32px rgba(34, 197, 94, 0.45);
+    }
+    .logo-badge span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #022c22;
+    }
+    .logo-text-main {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 1.1rem;
+    }
+    .logo-text-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    nav {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.8fr);
+      gap: 2.5rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: linear-gradient(120deg, rgba(34, 197, 94, 0.15), transparent);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+    }
+    h1 {
+      font-size: clamp(2rem, 3.1vw, 2.75rem);
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.03em;
+    }
+    .hero-tagline {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 38rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .hero-highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      margin-bottom: 1.4rem;
+    }
+    .btn-primary {
+      border-radius: 999px;
+      border: none;
+      padding: 0.55rem 1.3rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: radial-gradient(circle at top left, #4ade80 0, #16a34a 45%, #065f46 100%);
+      color: #022c22;
+      cursor: default;
+      box-shadow: 0 10px 28px rgba(34, 197, 94, 0.35);
+    }
+    .btn-secondary {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .hero-footnote {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-card {
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      padding: 1.3rem 1.4rem;
+      background: radial-gradient(circle at top, #020617 0, #020617 55%, #020617 100%);
+      box-shadow: 0 22px 80px rgba(15, 23, 42, 0.8);
+    }
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .pill span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+    .score-label {
+      color: var(--text-muted);
+    }
+    .score-value {
+      font-variant-numeric: tabular-nums;
+    }
+    .score-pillars {
+      margin-top: 0.9rem;
+      padding-top: 0.9rem;
+      border-top: 1px dashed rgba(55, 65, 81, 0.7);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .pillar-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .chip {
+      border-radius: 999px;
+      padding: 0.18rem 0.55rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .chip strong {
+      color: var(--accent);
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .section-kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .muted {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      max-width: 46rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.3rem;
+    }
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .card {
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 1rem 1.1rem 1.1rem;
+      background: linear-gradient(140deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      font-size: 0.9rem;
+    }
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.4rem;
+      font-size: 0.96rem;
+    }
+    .card p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+    .bullet-list {
+      margin: 0.6rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--text-muted);
+    }
+    .bullet-list li {
+      margin-bottom: 0.25rem;
+    }
+    .stacked {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-top: 1.1rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.2rem;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
-  <h1>Arcline</h1>
-  <p class="tagline">AI readiness & data quality insights for construction and trades.</p>
+  <div class="shell">
+    <header>
+      <div class="logo-mark">
+        <div class="logo-badge"><span>AR</span></div>
+        <div>
+          <div class="logo-text-main">Arcline</div>
+          <div class="logo-text-sub">AI readiness for construction & trades</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#how-it-works">How it works</a>
+        <a href="#signals">What we analyze</a>
+        <a href="#pilots">Pilot program</a>
+        <a href="#legal">Legal</a>
+      </nav>
+    </header>
 
-  <p>
-    Arcline helps construction companies understand how ready their accounting and
-    operational systems are for automation. We start with QuickBooks Online and
-    tools like Procore to analyze data quality, structure, and process hygiene, then
-    surface clear recommendations, ROI ranges, and a practical roadmap.
-  </p>
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div>
+          <div class="eyebrow">
+            <div class="eyebrow-dot"></div>
+            Early pilot – construction & trades
+          </div>
+          <h1>Turn your accounting data into an AI-ready foundation.</h1>
+          <p class="hero-tagline">
+            Arcline analyzes your <span class="hero-highlight">QuickBooks Online</span> data
+            – and soon systems like Procore – to measure data hygiene, ledger reliability,
+            and automation readiness. You get a concrete readiness score, executive
+            summary, and a practical ROI-focused roadmap.
+          </p>
+          <div class="hero-cta-row">
+            <button class="btn-primary" type="button">Private pilot – invite only</button>
+            <div class="btn-secondary">Contact: <a href="mailto:ben14parks@gmail.com">ben14parks@gmail.com</a></div>
+          </div>
+          <div class="hero-footnote">
+            No write access to your accounting configuration. We read data you authorize,
+            compute metrics, and write results back to your own Airtable workspace.
+          </div>
+        </div>
 
-  <div class="card">
-    <h2>What Arcline does</h2>
-    <ul>
-      <li>Analyzes QuickBooks Online data for data quality & readiness</li>
-      <li>Generates a metrics snapshot and executive summary for owners</li>
-      <li>Models realistic, conservative ROI ranges for improvements</li>
-      <li>Produces a prioritized roadmap of near-term fixes and enablers</li>
-    </ul>
+        <aside class="hero-card" aria-label="Example readiness snapshot">
+          <div class="hero-card-header">
+            <div>
+              <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.15rem;">Example snapshot</div>
+              <div style="font-size:1.1rem;font-weight:500;">QBO AI Readiness</div>
+            </div>
+            <div class="pill">
+              Overall score <span>63 / 100</span>
+            </div>
+          </div>
+          <div class="score-row">
+            <div class="score-label">Ledger reliability</div>
+            <div class="score-value">71</div>
+          </div>
+          <div class="score-row">
+            <div class="score-label">Operational freshness & hygiene</div>
+            <div class="score-value">54</div>
+          </div>
+          <div class="score-row">
+            <div class="score-label">Automation enablement</div>
+            <div class="score-value">49</div>
+          </div>
+          <div class="score-pillars">
+            Based on:
+            <div class="pillar-chips">
+              <div class="chip"><strong>QBO</strong> field completeness</div>
+              <div class="chip"><strong>Reconciliation</strong> coverage</div>
+              <div class="chip"><strong>Digital invoicing</strong> usage</div>
+              <div class="chip"><strong>Job costing</strong> structure</div>
+              <div class="chip"><strong>Error & attachment</strong> signals</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section id="how-it-works">
+        <div class="section-kicker">Workflow</div>
+        <h2>How Arcline works with your systems</h2>
+        <p class="muted">
+          The current pilot focuses on QuickBooks Online for SMB construction companies.
+          We compute data-quality and readiness metrics, then generate an executive summary,
+          ROI-anchored roadmap, and CEO-friendly narrative – all stored back in your
+          Airtable base.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>1. Connect & authorize</h3>
+            <p>
+              You authorize Arcline to securely read accounting data from QuickBooks Online
+              via Intuit’s OAuth flow. Tokens are stored in Airtable and refreshed securely.
+            </p>
+            <ul class="bullet-list">
+              <li>Read-only access to relevant accounting data</li>
+              <li>Revocable by you at any time</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>2. Compute metrics & readiness scores</h3>
+            <p>
+              The backend computes metric bands and pillar scores for ledger reliability,
+              operational freshness & hygiene, and automation enablement.
+            </p>
+            <ul class="bullet-list">
+              <li>Required field completeness</li>
+              <li>Days since last transaction & error rates</li>
+              <li>Reconciliation, job costing & digital invoicing usage</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>3. Generate narrative & ROI roadmap</h3>
+            <p>
+              Using your metrics and owner-provided ROI inputs, Arcline builds a CEO-level
+              narrative, ranked “priority fixes,” and a simple roadmap with modeled ranges.
+            </p>
+            <ul class="bullet-list">
+              <li>No invented savings numbers</li>
+              <li>Outputs grounded in your data and inputs</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SIGNALS -->
+      <section id="signals">
+        <div class="section-kicker">Signals</div>
+        <h2>What we analyze in QuickBooks Online</h2>
+        <p class="muted">
+          Arcline does not replace your accountant or bookkeeper. Instead, it measures how
+          ready your existing data is for reporting, analytics, and automation.
+        </p>
+        <div class="stacked">
+          <div class="card">
+            <h3>Ledger reliability</h3>
+            <ul class="bullet-list">
+              <li>Consistency of reconciliations across key accounts</li>
+              <li>Error incidence per 1,000 transactions</li>
+              <li>Use of manual journals vs. system-driven entries</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Operational freshness & hygiene</h3>
+            <ul class="bullet-list">
+              <li>Days since last posting activity</li>
+              <li>Required field completeness on transactions</li>
+              <li>Attachment coverage for invoices, bills, and expenses</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Automation enablement</h3>
+            <ul class="bullet-list">
+              <li>Share of invoices issued digitally vs. manually</li>
+              <li>Job / project costing usage for profitability insight</li>
+              <li>Signals that future AI workflows can safely depend on</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- PILOT -->
+      <section id="pilots">
+        <div class="section-kicker">Pilot</div>
+        <h2>Private pilot for SMB construction</h2>
+        <p class="muted">
+          Arcline is currently in a limited pilot phase with a small number of construction
+          and trade businesses. The focus of the pilot is on accurate measurement, clear
+          language for owners, and repeatable scoring across systems.
+        </p>
+        <div class="card" style="margin-top:1.1rem;">
+          <h3>Interested in the pilot?</h3>
+          <p>
+            Contact <a href="mailto:ben14parks@gmail.com">ben14parks@gmail.com</a> with a brief
+            note about your company, your accounting system setup, and what you’d like to
+            understand about AI readiness.
+          </p>
+        </div>
+      </section>
+
+      <!-- LEGAL -->
+      <section id="legal">
+        <div class="section-kicker">Legal</div>
+        <h2>Legal overview</h2>
+        <p class="muted">
+          Arcline is early-stage. We take data privacy and security seriously and are
+          continuously tightening processes as the product evolves. The core principles:
+        </p>
+        <div class="stacked">
+          <div class="card">
+            <h3>Data access & scope</h3>
+            <p>
+              We access the QuickBooks Online data you explicitly authorize for the purpose
+              of computing readiness metrics, narrative summaries, and ROI estimates. We do
+              not resell your data.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Privacy & terms</h3>
+            <p>
+              Details on data handling, security, and your rights are described in the
+              documents below. These may be updated as the product matures.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year"></span> Arcline. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">End-User License / Terms</a>
+        <a href="mailto:ben14parks@gmail.com">Contact</a>
+      </div>
+    </footer>
   </div>
 
-  <div class="card">
-    <h2>Contact</h2>
-    <p>
-      For questions about Arcline, pilot programs, or data privacy, contact:<br />
-      <strong>Email:</strong> <a href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a>
-    </p>
-  </div>
-
-  <div class="card">
-    <h2>Legal</h2>
-    <p>
-      <a href="privacy.html">Privacy Policy</a> ·
-      <a href="eula.html">End-User License Agreement (EULA)</a>
-    </p>
-  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
+
